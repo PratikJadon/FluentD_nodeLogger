@@ -15,6 +15,4 @@ async function start() {
 }
 start();
 
-setTimeout(() => {
-  fluentLog("RAJ2");
-}, 2000);
+setInterval(fluentLog, 3000);
