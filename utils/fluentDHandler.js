@@ -2,8 +2,6 @@ import * as fs from "fs";
 import fluentLogger from "fluent-logger";
 import logger from "./logger.js";
 
-// Configure Fluentd logger
-
 export default async function fluentLog() {
     logger.info("Inside the fluentLog function");
   fluentLogger.configure("pratik", {
@@ -14,7 +12,7 @@ export default async function fluentLog() {
   });
 
   // Read the log file
-  const logFilePath = "error.log"; // Replace with the path to your log file
+  const logFilePath = "error.log"; 
 
   // Check the size of the log file
   fs.stat(logFilePath, (err, stats) => {
