@@ -2,6 +2,7 @@ import { StatusCodes } from "http-status-codes";
 import modelfunction from "../ModelFunction/userFunction.js";
 import sendToken from "../utils/SendToken.js";
 import tokenListFunction from "../ModelFunction/tokenListFunction.js";
+import logger from "../utils/logger.js";
 
 const userFunction = new modelfunction();
 const tokenList = new tokenListFunction();
@@ -9,11 +10,12 @@ const tokenList = new tokenListFunction();
 export class userController {
   async signUP(req, res) {
     try {
+      console.log(req.body);
       const { name, email, password } = req.body;
-      console.log(name, email, password);
       const result = await userFunction.signup(name, password, email);
       const token = result.getJWT();
       await tokenList.addToken(token);
+      logger.info("User created.");
       return res.status(200).json({
         message: "User Created",
         UserID: result._id,
@@ -68,29 +70,30 @@ export class userController {
         .json({ message: error.message });
     }
   }
-  async getDetails(req,res){
-    const userID=req.params.id;
+  async getDetails(req, res) {
+    const userID = req.params.id;
     const result = await userFunction.getDetailsUser(userID);
-    if(!result){
-      return res.status(StatusCodes.NOT_FOUND).send('No User Found');
-    }
-    else{
+    if (!result) {
+      return res.status(StatusCodes.NOT_FOUND).send("No User Found");
+    } else {
       return res.status(StatusCodes.ACCEPTED).send(result);
     }
   }
-  async getAllDetails(req,res){
+  async getAllDetails(req, res) {
     const result = await userFunction.getAll();
     return res.status(StatusCodes.ACCEPTED).send(result);
   }
-  async updateUser(req,res){
-    const {name, email} = req.body;
+  async updateUser(req, res) {
+    const { name, email } = req.body;
     const userId = req.params.id;
-    const result = await userFunction.updateUser(name,email,userId);
-    if(!result){
-      return res.status(StatusCodes.NOT_FOUND).send('No user Found');
-    }
-    else{
-      return res.status(StatusCodes.ACCEPTED).send(result).json({message:"User Updated"});
+    const result = await userFunction.updateUser(name, email, userId);
+    if (!result) {
+      return res.status(StatusCodes.NOT_FOUND).send("No user Found");
+    } else {
+      return res
+        .status(StatusCodes.ACCEPTED)
+        .send(result)
+        .json({ message: "User Updated" });
     }
   }
 }
