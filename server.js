@@ -9,7 +9,7 @@ dotenv.config();
 async function start() {
   await connectDB(process.env.MONGO_URL);
   app.listen(3000, () => {
-    logger.info("Server started at port 3000");
+    // logger.info("Server started at port 3000");
     console.log("Server is listening at 3000");
   });
 }

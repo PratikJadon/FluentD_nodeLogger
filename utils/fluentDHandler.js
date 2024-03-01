@@ -28,5 +28,4 @@ export default async function fluentLog() {
 
     console.log(`Log file contents sent to Fluentd.`);
   });
-  //   fluentLogger.emit("image1", { message: "Hello" });
 }
