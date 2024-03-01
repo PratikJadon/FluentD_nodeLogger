@@ -3,8 +3,9 @@ import fluentLogger from "fluent-logger";
 import logger from "./logger.js";
 
 export default async function fluentLog() {
+  logger.info("Updating");
   fluentLogger.configure("pratik", {
-    host: "localhost",
+    host: "host.docker.internal",
     port: "24224",
     timeout: 3.0,
     reconnectInterval: 600000,
@@ -30,7 +31,7 @@ export default async function fluentLog() {
           return;
         }
 
-        const split_data = data.split("\r\n");
+        const split_data = data.split("\n");
         // Emit each log entry to FluentD separately
         split_data.forEach((logEntry) => {
           const matchResult = logEntry.match(/\[(.*?)\]/);
