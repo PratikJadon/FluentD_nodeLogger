@@ -3,7 +3,8 @@ import fluentLogger from "fluent-logger";
 import logger from "./logger.js";
 
 export default async function fluentLog() {
-  fluentLogger.configure("pratik", {
+  logger.info("Updating");
+  fluentLogger.configure("raj", {
     host: "localhost",
     port: "24224",
     timeout: 3.0,
