@@ -1,4 +1,5 @@
 import tokenListModel from "../Models/tokenListModel.js";
+import logger from "../utils/logger.js";
 
 export default class tokenListFunction {
   constructor() {
@@ -11,6 +12,7 @@ export default class tokenListFunction {
         ? false
         : true;
     } catch (error) {
+      logger.error("Failed to remove Token\n" + error);
       console.log("Failed to remove Token\n" + error);
       return false;
     }
